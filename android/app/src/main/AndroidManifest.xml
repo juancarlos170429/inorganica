@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inorganica">
    <application
-        android:label="inorganica"
+        android:label="Quimica inorganica"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -27,6 +27,9 @@
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8398776666504336~5911401061"/>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:inorganica/models/cardInfo.dart';
 import 'package:inorganica/models/menu.dart';
 import 'package:inorganica/screens/components/card_menu.dart';
@@ -687,6 +687,7 @@ class _MenuVState extends State<MenuV> {
   bool mostrarBusqueda = true;
   @override
   void initState() {
+    myBanner.load();
     super.initState();
     listaBusqueda = lista;
   }
@@ -700,6 +701,27 @@ class _MenuVState extends State<MenuV> {
     });
   }
 
+  final BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-8398776666504336/7242161581',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      // Called when an ad is successfully received.
+      onAdLoaded: (Ad ad) => print('Ad loaded.'),
+      // Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        // Dispose the ad here to free resources.
+        ad.dispose();
+        print('Ad failed to load: $error');
+      },
+      // Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad) => print('Ad opened.'),
+      // Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad) => print('Ad closed.'),
+      // Called when an impression occurs on the ad.
+      onAdImpression: (Ad ad) => print('Ad impression.'),
+    ),
+  );
   void _buscar() {
     setState(() {
       listaBusqueda = lista
@@ -798,10 +820,11 @@ class _MenuVState extends State<MenuV> {
                                 ));
                           }),
                     ))),
-            // Container(
-            //   height: 70,
-            //   color: Color(0xffd9d8d9),
-            // ),
+            Container(
+              height: 50,
+              color: Color(0xffd9d8d9),
+              child: AdWidget(ad: myBanner),
+            ),
           ],
         ));
   }
